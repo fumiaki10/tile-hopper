@@ -1,11 +1,41 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
 
 const cols = [0, 1, 2]
 const rows = [0, 1, 2, 3, 4]
 
+
+
+
 function App() {
   const [playerPos, setPlayerPos] = useState({ x: 1, y: 4 })
+  console.log(playerPos.y)
+
+  useEffect(() => {
+    const handleKeyDown = ((e: KeyboardEvent) => {
+      let newX = playerPos.x;
+      let newY = playerPos.y;
+      let moved = false;
+
+
+      if ((e.key === 'ArrowUp' || e.key === 'w') && playerPos.y > 0) {
+        newY--;
+        moved = true;
+      }
+      if ((e.key === 'ArrowDown' || e.key === 's') && playerPos.y < 4) {
+        newY++;
+
+        moved = true;
+      }
+
+
+      if (moved) {
+        setPlayerPos({ x: newX, y: newY });
+      }
+    })
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [playerPos])
 
 
   return (
