@@ -18,6 +18,8 @@ function App() {
   useEffect(() => {
     const handleKeyDown = ((e: KeyboardEvent) => {
       e.preventDefault()
+
+      if (isGameOver) return
       let newX = playerPos.x;
       let movedX = false;
 
@@ -53,12 +55,14 @@ function App() {
     })
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [playerPos])
+  }, [playerPos, stageMap])
 
 
   return (
     <>
       <div className="stage">
+        {isGameOver && <div className="game-over">GAME OVER</div>}
+
         <div className="player_position">
           {stageMap.map((row, y) =>
             row.map((cellValue, x) => {
