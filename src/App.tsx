@@ -9,10 +9,11 @@ const rows = [0, 1, 2, 3, 4]
 
 function App() {
   const [playerPos, setPlayerPos] = useState({ x: 1, y: 4 })
-  console.log(playerPos.y)
+
 
   useEffect(() => {
     const handleKeyDown = ((e: KeyboardEvent) => {
+      e.preventDefault()
       let newX = playerPos.x;
       let newY = playerPos.y;
       let moved = false;
