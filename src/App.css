@@ -32,6 +32,13 @@
   background-color: rgb(92, 78, 78);
 }
 
+.trap{
+   background-color: rgb(0, 0, 0);
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+}
+
 
 
 
