@@ -14,6 +14,18 @@ function App() {
   ])
   const isGameOver = stageMap[4][playerPos.x] === 1
 
+  const handleReset = () => {
+    setPlayerPos({ x: 1, y: 4 })
+    setStageMap([
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+      [0, 0, 0],
+    ])
+  }
+
+
 
   useEffect(() => {
     const handleKeyDown = ((e: KeyboardEvent) => {
@@ -60,7 +72,10 @@ function App() {
 
   return (
     <>
+
+
       <div className="stage">
+        <button className="reset_btn" onClick={handleReset}>リセット</button>
         {isGameOver && <div className="game-over">GAME OVER</div>}
 
         <div className="player_position">
@@ -77,6 +92,8 @@ function App() {
             }))}
         </div>
       </div>
+
+
     </>
   )
 }
