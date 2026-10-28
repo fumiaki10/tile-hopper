@@ -24,9 +24,17 @@ function App() {
       }
       if ((e.key === 'ArrowDown' || e.key === 's') && playerPos.y < 4) {
         newY++;
-
         moved = true;
       }
+      if ((e.key === 'ArrowLeft' || e.key === 'a') && playerPos.x > 0) {
+        newX--;
+        moved = true;
+      }
+      if ((e.key === 'ArrowRight' || e.key === 'd') && playerPos.x < 2) {
+        newX++;
+        moved = true;
+      }
+
 
 
       if (moved) {
