@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import { Timer } from "./component/timer"
+import { TimerStart } from "./component/timerStart"
+
+
 
 
 function App() {
@@ -35,7 +37,10 @@ function App() {
     const handleKeyDown = ((e: KeyboardEvent) => {
       e.preventDefault()
 
-      if (isGameOver) return
+      if (isGameOver) {
+
+        return
+      }
 
 
 
@@ -84,9 +89,10 @@ function App() {
 
       <div className="stage">
         <button className="reset_btn" onClick={handleReset}>リセット</button>
-        <Timer />
+
 
         {isGameOver && <div className="game-over">GAME OVER</div>}
+        <TimerStart isGameOver={isGameOver} />
 
         <div className="player_position">
           {stageMap.map((row, y) =>

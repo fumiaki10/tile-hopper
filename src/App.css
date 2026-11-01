@@ -69,6 +69,15 @@
   border-radius: 5px;
 }
 
+.start_btn{
+  position: absolute;
+  width: 250px;
+  height: 80px;
+  border-radius: 5px;
+  border: none;
+  font-size: larger;
+  cursor: pointer;
+}
 
 
 

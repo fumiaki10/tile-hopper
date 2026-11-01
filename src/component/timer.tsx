@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 
+type TimerProps = {
+  isRunning: boolean
+  setIsRunning: (value: boolean) => void
+  isGameOver: boolean
+}
 
 
-export const Timer = () => {
+export const Timer = ({ isRunning, setIsRunning, isGameOver }: TimerProps) => {
 
   const [timer, setTimer] = useState(10)
-  const [isRunning, setIsRunning] = useState(false)
+  useEffect(() => {
+    if (isGameOver) {
+      setIsRunning(false)
+    }
+  }, [isGameOver, setIsRunning])
 
   useEffect(() => {
     if (!isRunning) return;
@@ -27,7 +36,6 @@ export const Timer = () => {
   return (
     <>
       <div className="timer">{timer}</div>
-
     </>
   )
 }
