@@ -14,6 +14,9 @@ function App() {
     [0, 0, 0],
     [0, 0, 0],
   ])
+  const [timer, setTimer] = useState(10)
+  const [isRunning, setIsRunning] = useState(false)
+
   const isGameOver = stageMap[4][playerPos.x] === 1
 
 
@@ -27,22 +30,40 @@ function App() {
       [0, 0, 0],
       [0, 0, 0],
     ])
+    setTimer(10)
+    setIsRunning(false)
   }
 
 
+  useEffect(() => {
+    if (isGameOver) {
+      setIsRunning(false)
+    }
+  }, [isGameOver])
 
+  useEffect(() => {
+    if (!isRunning) return;
 
+    const intervalId = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          setIsRunning(false)
+          return 0
+        }
+        return prev - 1
+      });
+    }, 1000);
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [isRunning])
 
+  //キー操作
   useEffect(() => {
     const handleKeyDown = ((e: KeyboardEvent) => {
       e.preventDefault()
-
-      if (isGameOver) {
-
-        return
-      }
-
-
+      console.log(isGameOver)
+      if (isGameOver || !isRunning) return
 
       let newX = playerPos.x;
       let movedX = false;
@@ -80,7 +101,7 @@ function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
 
-  }, [playerPos, stageMap])
+  }, [playerPos, stageMap, isRunning])
 
 
   return (
@@ -92,7 +113,7 @@ function App() {
 
 
         {isGameOver && <div className="game-over">GAME OVER</div>}
-        <TimerStart isGameOver={isGameOver} />
+        <TimerStart timer={timer} isRunning={isRunning} setIsRunning={setIsRunning} />
 
         <div className="player_position">
           {stageMap.map((row, y) =>

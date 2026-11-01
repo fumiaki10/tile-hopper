@@ -1,20 +1,17 @@
 import { Timer } from "./timer"
 import { StartBtn } from "./startBtn"
-import { useState } from "react"
 
 type TimerStartProps = {
-  isGameOver: boolean
+  timer: number
+  isRunning: boolean
+  setIsRunning: (value: boolean) => void
 }
 
-export const TimerStart = ({ isGameOver }: TimerStartProps) => {
-  const [isRunning, setIsRunning] = useState(false)
-  const handleStart = () => {
-    setIsRunning(true)
-  }
+export const TimerStart = ({ timer, isRunning, setIsRunning }: TimerStartProps) => {
   return (
     <>
-      <Timer isRunning={isRunning} setIsRunning={setIsRunning} isGameOver={isGameOver} />
-      <StartBtn isRunning={isRunning} onStart={handleStart} />
+      <Timer timer={timer} />
+      <StartBtn isRunning={isRunning} onStart={() => setIsRunning(true)} />
     </>
 
   )
