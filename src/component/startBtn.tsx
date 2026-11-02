@@ -1,13 +1,21 @@
 type StartBtnProps = {
   isRunning: boolean
   onStart: () => void
+  isTimerEnd: boolean
+  isGameOver: boolean
 }
 
-export const StartBtn = ({ isRunning, onStart }: StartBtnProps) => {
+export const StartBtn = ({
+  isRunning,
+  isTimerEnd,
+  isGameOver,
+  onStart
+}: StartBtnProps) => {
+  const shouldShowButton = !isRunning && !isGameOver && !isTimerEnd
 
   return (
     <>
-      {!isRunning && (<button className="start_btn" onClick={onStart}>START</button>)}
+      {shouldShowButton && (<button className="start_btn" onClick={onStart}>START</button>)}
     </>
   )
 }

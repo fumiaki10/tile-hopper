@@ -20,6 +20,7 @@ function App() {
   const isGameOver = stageMap[4][playerPos.x] === 1
 
 
+  const isTimerEnd = timer === 0
 
   const handleReset = () => {
     setPlayerPos({ x: 1, y: 4 })
@@ -62,8 +63,7 @@ function App() {
   useEffect(() => {
     const handleKeyDown = ((e: KeyboardEvent) => {
       e.preventDefault()
-      console.log(isGameOver)
-      if (isGameOver || !isRunning) return
+      if (isGameOver || !isRunning || isTimerEnd) return
 
       let newX = playerPos.x;
       let movedX = false;
@@ -101,7 +101,7 @@ function App() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
 
-  }, [playerPos, stageMap, isRunning])
+  }, [playerPos, stageMap, isRunning, isGameOver, isTimerEnd])
 
 
   return (
@@ -112,8 +112,15 @@ function App() {
         <button className="reset_btn" onClick={handleReset}>リセット</button>
 
 
-        {isGameOver && <div className="game-over">GAME OVER</div>}
-        <TimerStart timer={timer} isRunning={isRunning} setIsRunning={setIsRunning} />
+        {(isGameOver || isTimerEnd) && <div className="game-over">GAME OVER</div>}
+        <TimerStart
+          timer={timer}
+          isRunning={isRunning}
+          setIsRunning={setIsRunning}
+          isTimerEnd={isTimerEnd}
+          isGameOver={isGameOver}
+        />
+
 
         <div className="player_position">
           {stageMap.map((row, y) =>
